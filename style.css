@@ -131,3 +131,13 @@
     font-weight: normal;
 }
 
+.faq_svar{
+    background-color: white;
+    padding: 2%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    font-weight: normal;
+}
+
