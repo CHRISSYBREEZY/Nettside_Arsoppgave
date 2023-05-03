@@ -70,9 +70,9 @@ class Game:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.game_state = GameState.ENDED
-                elif event.key == pygame.K_w or pygame.K_UP: #opp
+                elif event.key == pygame.K_w: #opp
                     self.move_unit(self.player, [0, -1])
-                elif event.key == pygame.K_s or pygame.K_DOWN: #ned
+                elif event.key == pygame.K_s : #ned
                     self.move_unit(self.player, [0, 1])
                 elif event.key == pygame.K_a: #venstre
                     self.move_unit(self.player, [-1, 0])
