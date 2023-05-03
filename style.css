@@ -112,7 +112,7 @@
     cursor: pointer;
     background-color: blue;
     color: white;
-    padding: 10px 10px;
+    padding: 10px 15px;
     border: none;
     left: 0%;
     top: 0%;
@@ -125,22 +125,33 @@
     color: black;
 }
 
+/*Bakrunnsfarger til sidene */
+
 .Background{
     background-image: url(Bilder/Kub_for.png);
     background-size: 100%;
 
 }
 
+
+.FAQ_background{
+    background-color: blue;
+    background-image: url(Bilder/Kub_for.png);
+    background-size: cover;
+    background-repeat: no-repeat;    
+}
+
 /* Tekst på Faq siden */
 
 .Sporsmal{
-    background-color: white;
+    background-color: blue;
     padding: 2%;
     display: flex;
     justify-content: center;
     text-align: center;
     font-size: 20px;
     font-weight: normal;
+    
 }
 
 .faq_svar{
