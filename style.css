@@ -165,6 +165,16 @@
 }
 
 
+.om_jimbo{
+    background-color: white;
+    padding: 2%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    font-weight: normal;
+}
+
 /* Knapp til faq svar for å laste ned */
 
 .Last_ned_kub{
