@@ -54,13 +54,13 @@ class Game:
     def determine_pokemon_found(self, map_tile):
         random_number = utilities.generate_random_number(1, 10)
 
-        # 20 percent chance of hitting pokemon
+        # 20% sjanse for å finne en kubenmon
         if random_number <= 2:
             found_monster = self.monster_factory.create_monster(map_tile)
-            print("you found a monster!")
-            print("Monster Type: " + found_monster.type)
-            print("Attack: " + str(found_monster.attack))
-            print("Health: " + str(found_monster.health))
+            print("Du fant en Kubenmon!")
+            print("Kubenmon Type: " + found_monster.type)
+            print("Angrep: " + str(found_monster.attack))
+            print("Liv: " + str(found_monster.health))
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -70,17 +70,17 @@ class Game:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.game_state = GameState.ENDED
-                elif event.key == pygame.K_w: # up
+                elif event.key == pygame.K_w or pygame.K_UP: #opp
                     self.move_unit(self.player, [0, -1])
-                elif event.key == pygame.K_s: # down
+                elif event.key == pygame.K_s or pygame.K_DOWN: #ned
                     self.move_unit(self.player, [0, 1])
-                elif event.key == pygame.K_a: # up
+                elif event.key == pygame.K_a: #venstre
                     self.move_unit(self.player, [-1, 0])
-                elif event.key == pygame.K_d: # up
+                elif event.key == pygame.K_d: # høyre
                     self.move_unit(self.player, [1, 0])
 
     def load_map(self, file_name):
-        with open('maps/' + file_name + ".txt") as map_file:
+        with open('Kubenmon/maps/' + file_name + ".txt") as map_file:
             for line in map_file:
                 tiles = []
                 for i in range(0, len(line) - 1, 2):
@@ -133,7 +133,7 @@ class Game:
 
 
 map_tile_image = {
-    config.MAP_TILE_GRASS : pygame.transform.scale(pygame.image.load("imgs/grass1.png"), (config.SCALE, config.SCALE)),
-    config.MAP_TILE_WATER: pygame.transform.scale(pygame.image.load("imgs/water.png"), (config.SCALE, config.SCALE)),
-    config.MAP_TILE_ROAD: pygame.transform.scale(pygame.image.load("imgs/road.png"), (config.SCALE, config.SCALE)),
+    config.MAP_TILE_GRASS : pygame.transform.scale(pygame.image.load("Kubenmon/imgs/grass1.png"), (config.SCALE, config.SCALE)),
+    config.MAP_TILE_WATER: pygame.transform.scale(pygame.image.load("Kubenmon/imgs/water.png"), (config.SCALE, config.SCALE)),
+    config.MAP_TILE_ROAD: pygame.transform.scale(pygame.image.load("Kubenmon/imgs/road.png"), (config.SCALE, config.SCALE)),
 }

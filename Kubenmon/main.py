@@ -8,14 +8,14 @@ pygame.init()
 
 screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 
-pygame.display.set_caption("Pokemon Clone")
+pygame.display.set_caption("Kubenmon")
 
 clock = pygame.time.Clock()
 
 game = Game(screen)
 game.set_up()
 
-# todo - this should handle menus at some point
+# Denne skal hontere menyer
 while game.game_state == GameState.RUNNING:
     clock.tick(50)
     game.update()
