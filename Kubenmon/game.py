@@ -102,6 +102,7 @@ class Game:
 
             y_pos = y_pos + 1
 
+
     def move_unit(self, unit, position_change):
         new_position = [unit.position[0] + position_change[0], unit.position[1] + position_change[1]]
 

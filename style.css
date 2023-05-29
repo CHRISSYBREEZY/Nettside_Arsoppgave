@@ -1,6 +1,6 @@
 @import url('https://fonts.cdnfonts.com/css/pokemon-solid');
 
-
+/*
 .header {
     background-color: blue;
     color: yellow;
@@ -13,7 +13,7 @@
     font-family: 'Pokemon Solid', sans-serif;    
     
 }
-
+*/
 
 .login-button {
     position: absolute;
@@ -128,8 +128,10 @@
 
 .Background{
     background-image: url(Bilder/Kub_for.png);
-    background-size: 100%;
-
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
 }
 
 
@@ -137,7 +139,7 @@
     background-color: blue;
     background-image: url(Bilder/Kub_for.png);
     background-size: cover;
-    background-repeat: no-repeat;    
+    background-repeat: no-repeat;
 }
 
 /* Tekst på Faq siden */
