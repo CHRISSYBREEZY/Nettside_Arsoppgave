@@ -6,18 +6,21 @@ import math
 import utilities
 
 from player import Player
-from game_state import GameState
+from game_state import GameState, CurrentGameState
 from monsterfactory import MonsterFactory
+from game_view.map import Map
+from game_view.battle import Battle
 
 class Game:
     def __init__(self, screen):
         self.screen = screen
         self.objects = []
         self.game_state = GameState.NONE
-        self.map = []
-        self.camera = [0, 0]
+        self.current_game_state = CurrentGameState.MAP
         self.player_has_moved = False
         self.monster_factory = MonsterFactory()
+        self.map = Map(screen)
+        self.battle = None
 
     def set_up(self):
         player = Player(1, 1)
@@ -26,24 +29,28 @@ class Game:
         print("do set up")
         self.game_state = GameState.RUNNING
 
-        self.load_map("01")
+        self.map.load("01")
 
     def update(self):
-        self.player_has_moved = False
-        self.screen.fill(config.BLACK)
-        # print("update")
-        self.handle_events()
+        if self.current_game_state == CurrentGameState.MAP:
+            self.player_has_moved = False
+            self.screen.fill(config.BLACK)
+            # print("update")
+            self.handle_events()
 
-        self.render_map(self.screen)
+            self.map.render(self.screen, self.player, self.objects)
 
-        for object in self.objects:
-            object.render(self.screen, self.camera)
+            if self.player_has_moved:
+                self.determine_game_events()
+        elif self.current_game_state == CurrentGameState.BATTLE:
+            self.battle.update()
+            self.battle.render()
 
-        if self.player_has_moved:
-            self.determine_game_events()
+            if self.battle.monster.health <= 0:
+                self.current_game_state = CurrentGameState.MAP
 
     def determine_game_events(self):
-        map_tile = self.map[self.player.position[1]][self.player.position[0]]
+        map_tile = self.map.map_array[self.player.position[1]][self.player.position[0]]
         print(map_tile)
 
         if map_tile == config.MAP_TILE_ROAD:
@@ -54,13 +61,16 @@ class Game:
     def determine_pokemon_found(self, map_tile):
         random_number = utilities.generate_random_number(1, 10)
 
-        # 20% sjanse for å finne en kubenmon
+        # 20 percent chance of hitting pokemon
         if random_number <= 2:
             found_monster = self.monster_factory.create_monster(map_tile)
-            print("Du fant en Kubenmon!")
-            print("Kubenmon Type: " + found_monster.type)
-            print("Angrep: " + str(found_monster.attack))
-            print("Liv: " + str(found_monster.health))
+            print("you found a monster!")
+            print("Monster Type: " + found_monster.type)
+            print("Attack: " + str(found_monster.attack))
+            print("Health: " + str(found_monster.health))
+
+            self.battle = Battle(self.screen, found_monster, self.player)
+            self.current_game_state = CurrentGameState.BATTLE
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -69,72 +79,30 @@ class Game:
             #     handle key events
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    self.game_state = GameState.ENDED
-                elif event.key == pygame.K_w: #opp
+                    self.game_state = GameState.NONE
+                elif event.key == pygame.K_w: # up
                     self.move_unit(self.player, [0, -1])
-                elif event.key == pygame.K_s : #ned
+                elif event.key == pygame.K_s: # down
                     self.move_unit(self.player, [0, 1])
-                elif event.key == pygame.K_a: #venstre
+                elif event.key == pygame.K_a: # up
                     self.move_unit(self.player, [-1, 0])
-                elif event.key == pygame.K_d: # høyre
+                elif event.key == pygame.K_d: # up
                     self.move_unit(self.player, [1, 0])
-
-    def load_map(self, file_name):
-        with open('Kubenmon/maps/' + file_name + ".txt") as map_file:
-            for line in map_file:
-                tiles = []
-                for i in range(0, len(line) - 1, 2):
-                    tiles.append(line[i])
-                self.map.append(tiles)
-            print(self.map)
-
-    def render_map(self, screen):
-        self.determine_camera()
-
-        y_pos = 0
-        for line in self.map:
-            x_pos = 0
-            for tile in line:
-                image = map_tile_image[tile]
-                rect = pygame.Rect(x_pos * config.SCALE, y_pos * config.SCALE - (self.camera[1] * config.SCALE), config.SCALE, config.SCALE)
-                screen.blit(image, rect)
-                x_pos = x_pos + 1
-
-            y_pos = y_pos + 1
-
 
     def move_unit(self, unit, position_change):
         new_position = [unit.position[0] + position_change[0], unit.position[1] + position_change[1]]
 
         # check if off map
-        if new_position[0] < 0 or new_position[0] > (len(self.map[0]) - 1):
+        if new_position[0] < 0 or new_position[0] > (len(self.map.map_array[0]) - 1):
             return
 
-        if new_position[1] < 0 or new_position[1] > (len(self.map) - 1):
+        if new_position[1] < 0 or new_position[1] > (len(self.map.map_array) - 1):
             return
 
         # check for valid movement
-        if self.map[new_position[1]][new_position[0]] == config.MAP_TILE_WATER:
+        if self.map.map_array[new_position[1]][new_position[0]] == config.MAP_TILE_WATER:
             return
 
         self.player_has_moved = True
 
         unit.update_position(new_position)
-
-    def determine_camera(self):
-        max_y_position = len(self.map) - config.SCREEN_HEIGHT / config.SCALE
-        y_position = self.player.position[1] - math.ceil(round(config.SCREEN_HEIGHT/ config.SCALE / 2))
-
-        if y_position <= max_y_position and y_position >= 0:
-            self.camera[1] = y_position
-        elif y_position < 0:
-            self.camera[1] = 0
-        else:
-            self.camera[1] = max_y_position
-
-
-map_tile_image = {
-    config.MAP_TILE_GRASS : pygame.transform.scale(pygame.image.load("Kubenmon/imgs/grass1.png"), (config.SCALE, config.SCALE)),
-    config.MAP_TILE_WATER: pygame.transform.scale(pygame.image.load("Kubenmon/imgs/water.png"), (config.SCALE, config.SCALE)),
-    config.MAP_TILE_ROAD: pygame.transform.scale(pygame.image.load("Kubenmon/imgs/road.png"), (config.SCALE, config.SCALE)),
-}

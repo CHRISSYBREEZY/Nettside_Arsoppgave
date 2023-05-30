@@ -1,22 +1,29 @@
 import pygame
 import config
 from game_state import GameState
-
 from game import Game
+from menu import Menu
 
 pygame.init()
 
 screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 
-pygame.display.set_caption("Kubenmon")
+pygame.display.set_caption("Pokemon Clone")
 
 clock = pygame.time.Clock()
 
 game = Game(screen)
-game.set_up()
 
-# Denne skal hontere menyer
-while game.game_state == GameState.RUNNING:
+menu = Menu(screen, game)
+menu.set_up()
+
+while game.game_state != GameState.ENDED:
     clock.tick(50)
-    game.update()
+
+    if game.game_state == GameState.NONE:
+        menu.update()
+
+    if game.game_state == GameState.RUNNING:
+        game.update()
+
     pygame.display.flip()
