@@ -10,7 +10,7 @@ class Map:
         self.camera = [0, 0]
 
     def load(self, file_name):
-        with open('maps/' + file_name + ".txt") as map_file:
+        with open('Kubenmon/maps/' + file_name + ".txt") as map_file:
             for line in map_file:
                 tiles = []
                 for i in range(0, len(line) - 1, 2):
@@ -48,7 +48,7 @@ class Map:
             self.camera[1] = max_y_position
 
 map_tile_image = {
-    config.MAP_TILE_GRASS : pygame.transform.scale(pygame.image.load("imgs/grass1.png"), (config.SCALE, config.SCALE)),
-    config.MAP_TILE_WATER: pygame.transform.scale(pygame.image.load("imgs/water.png"), (config.SCALE, config.SCALE)),
-    config.MAP_TILE_ROAD: pygame.transform.scale(pygame.image.load("imgs/road.png"), (config.SCALE, config.SCALE)),
+    config.MAP_TILE_GRASS : pygame.transform.scale(pygame.image.load("Kubenmon/imgs/grass1.png"), (config.SCALE, config.SCALE)),
+    config.MAP_TILE_WATER: pygame.transform.scale(pygame.image.load("Kubenmon/imgs/water.png"), (config.SCALE, config.SCALE)),
+    config.MAP_TILE_ROAD: pygame.transform.scale(pygame.image.load("Kubenmon/imgs/road.png"), (config.SCALE, config.SCALE)),
 }

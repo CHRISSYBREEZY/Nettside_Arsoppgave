@@ -14,7 +14,7 @@ class Menu:
         self.game = game
 
     def set_up(self):
-        self.menu_image = pygame.image.load("imgs/menu.png")
+        self.menu_image = pygame.image.load("Kubenmon/imgs/menu.png")
 
     def update(self):
         self.screen.fill(config.BLACK)

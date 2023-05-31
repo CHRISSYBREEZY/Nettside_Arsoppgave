@@ -7,4 +7,4 @@ class Monster:
         self.health = 10
         self.attack = 10
         self.id = id
-        self.image = pygame.image.load("imgs/monsters/" + f"{self.id:03d}" + ".png")
+        self.image = pygame.image.load("Kubenmon/imgs/monsters/" + f"{self.id:03d}" + ".png")

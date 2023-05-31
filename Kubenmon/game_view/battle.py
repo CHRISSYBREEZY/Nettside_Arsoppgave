@@ -2,6 +2,7 @@ import pygame
 import config
 import math
 import utilities
+from game import GameState
 
 class Battle:
     def __init__(self, screen, monster, player):
@@ -21,10 +22,10 @@ class Battle:
         self.screen.blit(self.player.image, (320, 40))
 
         font = pygame.font.SysFont(None, 24)
-        img = font.render("health: " + str(self.monster.health) + " Attack: " + str(self.monster.attack), True, config.BLACK)
+        img = font.render("Liv: " + str(self.monster.health) + " Angrep: " + str(self.monster.attack), True, config.BLACK)
         self.screen.blit(img, (20, 120))
 
-        img = font.render("press enter to attack!", True, config.BLACK)
+        img = font.render("trykk enter knappen for å angripe", True, config.BLACK)
         self.screen.blit(img, (20, 220))
 
 
@@ -34,7 +35,6 @@ class Battle:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.game.game_state = GameState.ENDED
-            #     handle key events
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.game.game_state = GameState.ENDED
