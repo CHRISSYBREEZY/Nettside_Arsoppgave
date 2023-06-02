@@ -24,7 +24,6 @@ class Menu:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.game.game_state = GameState.ENDED
-            #     handle key events
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.game.game_state = GameState.ENDED

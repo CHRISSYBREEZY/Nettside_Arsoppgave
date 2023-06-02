@@ -29,4 +29,3 @@ while game.game_state != GameState.ENDED:
     pygame.display.flip()
 
 
-    Eksempel!!!
