@@ -70,13 +70,13 @@ class Game:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.game_state = GameState.ENDED
-                elif event.key == pygame.K_w: #opp
+                elif event.key == pygame.K_w or event.key == pygame.K_UP: #opp
                     self.move_unit(self.player, [0, -1])
-                elif event.key == pygame.K_s : #ned
+                elif event.key == pygame.K_s or event.key == pygame.K_DOWN: #ned
                     self.move_unit(self.player, [0, 1])
-                elif event.key == pygame.K_a: #venstre
+                elif event.key == pygame.K_a or event.key == pygame.K_LEFT: #venstre
                     self.move_unit(self.player, [-1, 0])
-                elif event.key == pygame.K_d: # høyre
+                elif event.key == pygame.K_d or event.key == pygame.K_RIGHT: # høyre
                     self.move_unit(self.player, [1, 0])
 
     def load_map(self, file_name):
@@ -132,6 +132,7 @@ class Game:
             self.camera[1] = 0
         else:
             self.camera[1] = max_y_position
+    
 
 
 map_tile_image = {
@@ -139,3 +140,41 @@ map_tile_image = {
     config.MAP_TILE_WATER: pygame.transform.scale(pygame.image.load("Kubenmon/imgs/water.png"), (config.SCALE, config.SCALE)),
     config.MAP_TILE_ROAD: pygame.transform.scale(pygame.image.load("Kubenmon/imgs/road.png"), (config.SCALE, config.SCALE)),
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
