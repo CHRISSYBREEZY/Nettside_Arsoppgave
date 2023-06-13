@@ -5,10 +5,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Database connection details
-    $hostname = 'localhost';
+    $hostname = '10.2.2.133';
     $db_username = 'root';  // Default username for XAMPP is 'root'
     $db_password = '';      // Default password for XAMPP is empty
-    $db_name = 'test1';  // Name of the database you created
+    $db_name = 'kubemon';  // Name of the database you created
 
     // Create a new MySQLi object and establish the database connection
     $mysqli = new mysqli($hostname, $db_username, $db_password, $db_name);
