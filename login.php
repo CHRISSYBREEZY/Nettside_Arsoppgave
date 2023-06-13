@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Perform login validation
-    $query = "SELECT * FROM brukere WHERE brukernavn = '$username' AND password = '$passord'";
+    $query = "SELECT * FROM brukere WHERE brukernavn = '$username' AND password = '$password'";
     $result = $mysqli->query($query);
 
     if ($result->num_rows == 1) {
