@@ -44,12 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows == 1) {
         // Login successful
         echo 'Login successful!';
-        header("location: main.py");
     } else {
         // Invalid credentials
         echo 'Invalid credentials. Please try again.';
     }
-
     // Close the database connection
     $mysqli->close();
 }
