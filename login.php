@@ -9,10 +9,10 @@
     <form action="process_form.php" method="POST">
         <!-- Form elements will be added here -->
         <label for="navn">Brukernavn: </label>
-        <input type="tekst" id="navn" name="brukernavn" required><br>
+        <input type="text" id="brukernavn" name="brukernavn" required><br>
 
         <label for="passord">Passord: </label>
-        <input type="passord" id="passord" name="passord"> <br> <br>
+        <input type="password" id="passord" name="passord"> <br> <br>
 
         <input type="submit" value="submit">
     </form>
@@ -21,7 +21,7 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve the submitted form data
-    $username = $_POST['navn'];
+    $username = $_POST['brukernavn'];
     $password = $_POST['passord'];
 
     // Database
