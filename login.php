@@ -8,11 +8,11 @@
 
     <form action="process_form.php" method="POST">
         <!-- Form elements will be added here -->
-        <label for="navn">Brukernavn:</label>
+        <label for="navn">Brukernavn: </label>
         <input type="tekst" id="navn" name="brukernavn" required><br>
 
-        <label for="passord">Passord:</label>
-        <input type="passord" id="passord" name="passord">
+        <label for="passord">Passord: </label>
+        <input type="passord" id="passord" name="passord"> <br> <br>
 
         <input type="submit" value="submit">
     </form>
